@@ -154,3 +154,36 @@ export const addPartners = (partners) => ({
   type: ActionTypes.ADD_PARTNERS,
   payload: partners,
 });
+
+export const postFavorite = (campsiteId) => (dispatch) => {
+  setTimeout(() => {
+    dispatch(addFavorite(campsiteId));
+  });
+};
+
+export const addFavorite = (campsiteId) => ({
+  type: ActionTypes.ADD_FAVORITE,
+  payload: campsiteId,
+});
+
+// Week 2 Assignment Work
+export const postComment = (campsiteId, rating, author, text) => (dispatch) => {
+  const newComment = {
+    campsiteId,
+    rating,
+    author,
+    text,
+  };
+  var date = new Date();
+  var dateString = date.toISOString();
+  newComment.date = dateString;
+
+  setTimeout(() => {
+    dispatch(addComment(newComment));
+  }, 2000);
+};
+
+export const addComment = (comment) => ({
+  type: ActionTypes.ADD_COMMENT,
+  payload: comment,
+});
