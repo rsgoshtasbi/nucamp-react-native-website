@@ -7,9 +7,10 @@ import {
   Modal,
   Button,
   StyleSheet,
-  SafeAreaView,
   Alert,
   PanResponder,
+  Share,
+  SafeAreaView,
 } from "react-native";
 import { Card, Icon, Rating, Input } from "react-native-elements";
 import { connect } from "react-redux";
@@ -29,6 +30,19 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   postFavorite,
   postComment,
+};
+
+const shareCampsite = (title, message, url) => {
+  Share.share(
+    {
+      title: title,
+      message: `${title}: ${message} ${url}`,
+      url: url,
+    },
+    {
+      dialogTitle: "Share " + title,
+    }
+  );
 };
 
 function RenderCampsite(props) {
@@ -111,6 +125,21 @@ function RenderCampsite(props) {
               raised
               reverse
               onPress={() => props.onShowModal()}
+            />
+            <Icon
+              name={"share"}
+              type="font-awesome"
+              color="#5637DD"
+              style={styles.cardItem}
+              raised
+              reverse
+              onPress={() =>
+                shareCampsite(
+                  campsite.name,
+                  campsite.description,
+                  baseUrl + campsite.image
+                )
+              }
             />
           </View>
         </Card>
